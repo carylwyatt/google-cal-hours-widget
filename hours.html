@@ -1,0 +1,114 @@
+<!--===========
+LAST UPDATED: 06.28.17 to reflect table HTML instead of unordered list
+- see this code in action on central indiana "summer 17" test website: http://library.ivytech.edu/c.php?g=686311
+- requires lodash.js and moments.js
+
+/*
+//============= calendar address and API key ==============
+obtained from google calendar settings page: xxxxxxxxxxxxxxxxxxxxxxx@group.calendar.google.com
+obtained from google developers console: long string of characters and numbers
+//==== google calendar api list events docs ======
+https://developers.google.com/google-apps/calendar/v3/reference/events/list
+*/
+
+===============-->
+
+<!-- ===== library CDN scripts ===== -->
+
+<script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+<!-- ===== the three lines of HTML ===== -->
+
+<h3>Today's Hours</h3>
+<p id="todays-date"></p>
+<div class="table-responsive">
+  <table class="table table-condensed table-hover" id="hours-grid">
+  </table>
+</div>
+<p style=><a class="more-link" href="http://library.ivytech.edu/central-indiana/hours">See all hours and locations  <i class="fa fa-arrow-right" aria-hidden="true"></i></a></p>
+
+<!-- ========= the magic ============== -->
+
+<script>
+//====set up date/time variables (moments.js)
+//get today's date
+const date = moment();
+//format it so it's in plain english
+//e.g. Thursday, March 30, 2017
+const today = date.format("dddd, MMMM D, YYYY");
+//append today's date to empty div
+$('#todays-date').append(today);
+//create variable to hold utc-style of today's date (moments.js)
+const utc = date.format("YYYY-MM-DD");
+//create variables for calendar address and api key
+const calAddress = "xxxxxxxxxxxxxxxx@group.calendar.google.com";
+const keyAPI = "API KEY";
+//inject today's date in YYYY-MM-DD format to the API URL
+//this url returns only the events scheduled for today
+const googleCal = `https://www.googleapis.com/calendar/v3/calendars/${calAddress}/events?singleEvents=true&timeMin=${utc}T00:00:00-04:00&timeMax=${utc}T23:59:59-04:00&key=${keyAPI}`;
+//main widget function
+//takes response data from API (see const response below) and runs it
+const displaySchedule = (data) => {
+ 
+        
+        //returns an array that holds all calendar data for specific day (lodash.js)
+        const libraries = _.filter(response.responseJSON.items);
+        
+        
+        	//sorted by reverse alphabetical order (lodash.js)
+          const sorted = _.orderBy(libraries, 'summary', 'desc');
+        
+        //and placed in a table
+        let tableHTML = '<tbody>';
+         
+          //loops through each event in the sorted libraries array/google calendar events (lodash.js)
+          _.forEach(sorted, function(library) {
+            
+            //if there is a dateTime key in the start and end of the calendar event
+            if (library.start.dateTime && library.end.dateTime) {
+            
+                //takes given time string (ISO 8601), parses it to standard format, then returns formatted time (moments.js)
+                //e.g. "2017-03-30T21:00:00-04:00" -> "9 pm"
+                function timeChanger(time) {
+                  const getDate = moment.parseZone(time);
+                  const formatDate = getDate.format("h a");
+                  return formatDate;
+                }
+                
+                //setting up variables to grab start and end times from the google calendar API
+                //put those times through time changer function
+                let startTime = timeChanger(library.start.dateTime);
+                let endTime = timeChanger(library.end.dateTime);
+               
+      
+                  //so excited  ES2015 makes concatting so much easier
+                  //creates table row for each event in the calendar array
+                  //e.g. | Downtown | 8 am - 9 pm |
+                 tableHTML += `<tr><td class="library-location">${library.description}</td><td>${startTime} - ${endTime}</td></tr>`;
+              
+            //if there is no description in the event, skip it
+              //this usually happens if we're on break, dionna will add an event called "spring break" but doesn't include description
+            } else if (!library.description) {
+              
+              return;
+            
+            //otherwise, it's closed! (dateTime returns undefined)
+            } else {
+              
+                  tableHTML += `<tr><td class="library-location">${library.description}</td><td>Closed</td></li>`;
+            }
+          }); //end of foreach loop
+        
+        tableHTML += '</tbody>';
+        
+        //empty old schedule tbody (may be unnecessary, but you never know) and replace with new tbody
+        $('#hours-grid').empty();
+        $('#hours-grid').append(tableHTML);
+        
+        
+} //end display schedule function
+//google calendar API request call
+const response = $.getJSON(googleCal, displaySchedule);
+  
+</script>
