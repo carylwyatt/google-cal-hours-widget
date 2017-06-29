@@ -38,7 +38,7 @@ If you're a libguides user, it's as simple as creating a new box and adding this
 
 ## documentation (a.k.a. doctoring the important bits)
 
-<a name="calendar"></a
+<a name="calendar"></a>
 ### google calendar 
 Get yourself to your google calendar's settings page. Hopefully you have something that looks like this:
 ![google calendar address](https://libapps.s3.amazonaws.com/accounts/41961/images/google_cal_address.jpg)
