@@ -76,7 +76,8 @@ The way the javascript works, it literally tells the browser to cycle through al
 #### For each event:
 
 - if it has start and end time properties (`(library.start.dateTime && library.end.dateTime) === true`), spit out the event description in one cell of the row and the start and end times in another cell of the same row and move on to the next event in the list;
-- OR if the event doesn't have a start and end time (my reasoning for this, which may be faulty, is that if it doesn't have an open/close time, it's closed all day-- at least, our closed libraries have the "all-day event" box checked, meaning no start/end times), spit out the event description in one cell of the row and the second cell of the row should say "Closed" and move on to the next event in the list;
+- OR if the event doesn't have a start and end time, spit out the event description in one cell of the row and the second cell of the row should say "Closed" and move on to the next event in the list;
+	- (my reasoning for this, which may be faulty, is that if it doesn't have an open/close time, it's closed all day-- at least, our closed libraries have the "all-day event" box checked, meaning no start/end times)
 - OR if the event doesn't have a description, skip it all together and move on to the next event in the list
 
 ...until all the events on the list have been checked and it stops.
