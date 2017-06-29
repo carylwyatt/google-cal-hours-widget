@@ -24,6 +24,13 @@ The first four are essential. Maybe. The lodash bit might be unnecessary if I ge
 
 Lodash and moments are linked to using the CDN, but feel free to download and use locally if you need a faster load time. 
 
+## main steps *or* table of contents
+1.  [google calendar for address](#calendar)
+2.  [google developers console API manager for API key](#api)
+3.  [doctor the code](#code) ⇒ paste in your calendar address and API key in those variables/`const`
+4.  [update calendar events with description and start/end times](#events)
+5.  drop code into libguide box HTML editor
+
 ## how does this work?
 If you're a libguides user, it's as simple as creating a new box and adding this (DOCTORED) code to the rich text/HTML editor. The doctoring part is where it could get complicated. I hope to explain everything as best as I can in the following documentation. 
 
@@ -31,13 +38,13 @@ If you're a libguides user, it's as simple as creating a new box and adding this
 
 ## documentation (a.k.a. doctoring the important bits)
 
-### google calendar
+### google calendar <a name="calendar"></a>
 Get yourself to your google calendar's settings page. Hopefully you have something that looks like this:
 ![google calendar address](https://libapps.s3.amazonaws.com/accounts/41961/images/google_cal_address.jpg)
 
 That bit after that ends in @group.calendar.google.com is your Calendar ID. You will need this for your request URL, so hold on to it. 
 
-### google developer console
+### google developer console <a name="api"></a>
 Head to the [Google Developers Console API Manager](https://console.developers.google.com/). You'll probably need to sign in if you're not already signed in to Google via your browser.
 
 On the left side of the screen, click on the key icon with **Credentials** next to it. 
@@ -46,7 +53,7 @@ You're going to need a new credential, so click the blue **Create credentials** 
 
 This key belongs to your username now, so any time you come back to the Developer Console API Manager, it will be there. Until you delete it. I've created different keys for different Google API projects I've worked on, so if you decide to try this code using different calendars, you should get a new API key as well.
 
-### custom code
+### custom code <a name="code"></a>
 Copy the code from the [Hours Widget github repo](https://github.com/carylwyatt/google-cal-hours-widget/hours.html). Or clone it. However you work, you do you!
 
 #### HTML
@@ -68,7 +75,7 @@ Here's what part of the JSON from my calendar looks like:
 
 I have a [JSON view enabler extension](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc?hl=en) installed in my browser, which makes it easier to read, but there should still be this basic type of information. If you can recognize at least the date and summary or description of an item, you can verify that it's pulling the info it should be. 
 
-### google calendar events
+### google calendar events <a name="events"></a>
 If your calendar hasn't shown up yet, it's probably because your events haven't been set up correctly. This still happens to my calendar regularly because the people putting events in don't know what needs to be filled in and I didn't catch it in time.
 
 The way the javascript works, it literally tells the browser to cycle through all the individual events that showed up in that JSON file earlier. Each event is its own object and each object has several properties. The javascript loop basically does this:
