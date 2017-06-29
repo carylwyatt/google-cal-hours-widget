@@ -57,7 +57,7 @@ This key belongs to your username now, so any time you come back to the Develope
 
 <a name="code"></a>
 ### custom code 
-Copy the code from the [Hours Widget github repo](https://github.com/carylwyatt/google-cal-hours-widget/hours.html). Or clone it. However you work, you do you!
+Copy the code from the [Hours Widget github repo](https://github.com/carylwyatt/google-cal-hours-widget/blob/master/hours.html). Or clone it. However you work, you do you!
 
 #### HTML
 Under the "Very Few Lines of HTML" heading, you can see how I've chosen to display this information on our website. Basically, there's a third-level heading with "Today's Hours" followed by an empty paragraph tag for today's date. Neither of these are necessary, but the empty paragraph will populate with the current date like this: **Thursday, June 29, 2017**.
