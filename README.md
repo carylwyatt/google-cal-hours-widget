@@ -95,13 +95,15 @@ The way the javascript works, it literally tells the browser to cycle through al
 
 Using Friday, June 30, 2017 of my library's calendar as an example, here's what will happen: 
 
-Downtown    8 am - 9 pm 
-Lawrence      9 am - 5 pm 
-Greencastle  Closed
+|Location | Hours |
+|--- | ---|
+|Downtown  |  8 am - 9 pm |
+|Lawrence   |   9 am - 5 pm |
+|Greencastle | Closed|
 
-Downtown is actually the description of the event. If you look at the JSON image above, you'll see that the event summary says **GRC OPEN** but the description says **Greencastle**. The JavaScript displays the description, because that's what I told it to do. GRC OPEN is easier for us to read on the Google Calendar, but it doesn't make sense to any library users, so I decided to add the campus name to the description and display that instead. Feel free to change that in the javascript if you find it unnecessarily complicated (lines 103, 107, 114).
+Downtown is actually the description of the event. If you look at the JSON image above, you'll see that the event summary says **GRC OPEN** but the description says **Greencastle**. The JavaScript displays the description, because that's what I told it to do. GRC OPEN is easier for us to read on the Google Calendar, but it doesn't make sense to any library users, so I decided to add the campus name to the description and display that instead. Feel free to change that in the javascript if you find it unnecessarily complicated.
 
-If, for whatever reason, you have an event without a description, the script will skip it (as seen in the third bullet point of the list of if statements above). This is because people at my library like to know when breaks are coming up, but I don't want them to show up on the public-facing calendar. No one on the library website cares that it's the first day of classes, they just want to know what time the library closes today. You can delete that part of the if statement if you don't want that to happen (lines 105-109).
+If, for whatever reason, you have an event without a description, the script will skip it (as seen in the third bullet point of the list of if statements above). This is because people at my library like to know when breaks are coming up, but I don't want them to show up on the public-facing calendar. No one on the library website cares that it's the first day of classes, they just want to know what time the library closes today. You can delete that part of the if statement if you don't want that to happen.
 
 #### TL;DR:
 
