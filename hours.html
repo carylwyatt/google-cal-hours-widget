@@ -1,15 +1,21 @@
 <!--===========
-LAST UPDATED: 06.28.17 to reflect table HTML instead of unordered list
-- see this code in action on central indiana "summer 17" test website: http://library.ivytech.edu/c.php?g=686311
+
+//====== info ==========
+central indiana libraries, ivy tech community college
+today's hours "widget"
+created by caryl wyatt, caryl.e.wyatt@gmail.com | carylwyatt.github.io
+
+//======= notes ========
+LAST UPDATED: 10.24.17 to fix the if/else if/else statement
+- see this code in action in "today's hours" section on central indiana library website: http://library.ivytech.edu/central-indiana
 - requires lodash.js and moments.js
 
-/*
 //============= calendar address and API key ==============
 obtained from google calendar settings page: xxxxxxxxxxxxxxxxxxxxxxx@group.calendar.google.com
 obtained from google developers console: long string of characters and numbers
+
 //==== google calendar api list events docs ======
 https://developers.google.com/google-apps/calendar/v3/reference/events/list
-*/
 
 ===============-->
 
@@ -18,7 +24,7 @@ https://developers.google.com/google-apps/calendar/v3/reference/events/list
 <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 
-<!-- ===== the three lines of HTML ===== -->
+<!-- ===== the "three" lines of HTML ===== -->
 
 <h3>Today's Hours</h3>
 <p id="todays-date"></p>
@@ -26,7 +32,7 @@ https://developers.google.com/google-apps/calendar/v3/reference/events/list
   <table class="table table-condensed table-hover" id="hours-grid">
   </table>
 </div>
-<p style=><a class="more-link" href="http://library.ivytech.edu/central-indiana/hours">See all hours and locations  <i class="fa fa-arrow-right" aria-hidden="true"></i></a></p>
+<p><a class="more-link" href="http://library.ivytech.edu/central-indiana/hours">See all hours and locations  <i class="fa fa-arrow-right" aria-hidden="true"></i></a></p>
 
 <!-- ========= the magic ============== -->
 
@@ -87,9 +93,10 @@ const displaySchedule = (data) => {
                   //e.g. | Downtown | 8 am - 9 pm |
                  tableHTML += `<tr><td class="library-location">${library.description}</td><td>${startTime} - ${endTime}</td></tr>`;
               
+      
             //if there is no description in the event, skip it
-              //this usually happens if we're on break, dionna will add an event called "spring break" but doesn't include description
-            } else if (!library.description) {
+              //we occassionally have an employee add an event on accident, but they normally don't include a description; this skips that event
+            } else if((library.start.dateTime && library.end.dateTime && !library.description) || !library.description) {
               
               return;
             
